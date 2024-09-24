@@ -24,6 +24,9 @@
     <ClCompile Include="CP2112.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="MockMax31889.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Max31889.h">
@@ -45,6 +48,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Types.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MockMax31889.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

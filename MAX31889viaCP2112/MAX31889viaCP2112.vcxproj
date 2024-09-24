@@ -138,10 +138,12 @@
     <ClCompile Include="CP2112.cpp" />
     <ClCompile Include="Max31889.cpp" />
     <ClCompile Include="MAX31889viaCP2112.cpp" />
+    <ClCompile Include="MockMax31889.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CP2112.h" />
     <ClInclude Include="Max31889.h" />
+    <ClInclude Include="MockMax31889.h" />
     <ClInclude Include="silabs_defs.h" />
     <ClInclude Include="silabs_sal.h" />
     <ClInclude Include="SLABCP2112.h" />
