@@ -8,6 +8,8 @@ In the implementation, the MAX31889 uses a CP2112 as an i2c bridge. Consequently
 
 This code has been tested with multiple devices. If, however, debugging becomes necessary, there are a number of commented out statements that will print intermediate results to the terminal. Additionally, the code itself should be sufficiently documented to step through and understand the intended behavior.
 
+There is a MockMax31889 that can substitute in for the Max31889 class when a device is failing and a stream of temperatures is needed.
+
 ## MAX31889 Information
 
 There are no device drivers, headers, or libraries to talk to the MAX31889. As such, porting the code from one i2c bridge to another should be fairly straightforward. Write `0b11000001` (`0xC1`) to the register `0x14` to request a temperature measurement. The data sheet for the MAX31889 doesn't do the best job making this clear, but in the register description it does mention that the 2 high bits are reserved and must be `HIGH` in all writes. Once the request is made, wait (read, check, wait, and loop) until the status register `0x00` has the least significant bit `HIGH` (bitwise and with `0x01`). That bit indicates that a temperature is ready to be read from the FIFO queue. Two bytes must be read in burst mode from the data register (AKA the FIFO queue) at `0x08`. The two bytes can be translated into a temperature with units Celcius by treating them as a 16 bit integer and multiplying by 0.005. In the code, this is observed as `((temperature_buffer[0] << 8) + temperature_buffer[1]) * 0.005`.
@@ -28,3 +30,7 @@ A brief description of what happens:
 After the device is initialized, it may be used to read and write from attached i2c slave devices. These calls use both the device handle and address information for the desired i2c slave device.
 
 Upon completion, the device is closed using the device handle. This step invalidates the device handle.
+
+## MockMax31889
+
+This class is a (duck-typed) drop in replacement for the Max31889 class. When you need a temperature reading (the current class has 10 independent measurements followed by repeating the final measurement forever), this can act as a standin. The `initialize()` and `cleanup()` member functions do nothing but return success.
