@@ -48,3 +48,19 @@ int Max31889::cleanup()
 	auto retval = i2c.cleanup();
 	return 0;
 }
+
+void Max31889::max_write(int bytes) {
+	int iterations = bytes / 2;
+	uint8_t temperature_request[2] = { temperature_request_register, temperature_request_command };
+	for (int i = 0; i < iterations; i++) {
+		i2c.write(address, temperature_request, 2);
+	}
+}
+
+void Max31889::max_read_write(int bytes) {
+	uint8_t status_buffer[buffer_size];
+	int iterations = bytes;
+	for (int i = 0; i < iterations; i++) {
+		i2c.read(address, status_register, status_buffer, buffer_size, 1);
+	}
+}

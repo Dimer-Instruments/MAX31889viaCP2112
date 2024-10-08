@@ -16,5 +16,7 @@ public:
 	int initialize();
 	double temperature();
 	int cleanup();
+	void max_write(int bytes);
+	void max_read_write(int bytes);
 };
 

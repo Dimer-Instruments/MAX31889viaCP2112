@@ -90,7 +90,7 @@ int CP2112::initialize()
     //std::cout << "Opened device string (sanity check): " << opened_device_string << std::endl;
 
     // 6. Set device configuration. These are sane values that have been tested
-    DWORD bitrate = 100000;
+    DWORD bitrate = 50000;
     BYTE address = 0xA0;
     BOOL auto_read_respond = 0;
     WORD write_timeout = 1000; // 0 indicates infinite
@@ -102,7 +102,7 @@ int CP2112::initialize()
         std::cerr << "HidSmbus_SetSmbusConfig failed with error code: " << int(status) << std::endl;
         return status;
     }
-    //std::cout << "Device configuration set." << std::endl;
+    std::cout << "Device configuration set." << std::endl;
 	return status;
 }
 
@@ -115,7 +115,7 @@ int CP2112::initialize()
 /// <param name="buffer_length">size of the buffer passed in (must be at least 61)</param>
 /// <param name="num_bytes">The number of bytes actually requested to be read. Can be smaller than 61.</param>
 /// <returns>0 on success</returns>
-int CP2112::read(uint8_t address, uint8_t read_register, uint8_t* data, std::size_t buffer_length, std::size_t num_bytes)
+int CP2112::read(uint8_t address, uint8_t read_register, uint8_t* data, std::size_t buffer_length, std::size_t num_bytes) const
 {
     uint8_t address_buffer[1] = { read_register };
     auto status = HidSmbus_AddressReadRequest(device, address, num_bytes, 1, address_buffer);
