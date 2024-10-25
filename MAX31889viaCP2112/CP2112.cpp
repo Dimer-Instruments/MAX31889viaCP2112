@@ -90,7 +90,7 @@ int CP2112::initialize()
     //std::cout << "Opened device string (sanity check): " << opened_device_string << std::endl;
 
     // 6. Set device configuration. These are sane values that have been tested
-    DWORD bitrate = 50000;
+    DWORD bitrate = 400'000;
     BYTE address = 0xA0;
     BOOL auto_read_respond = 0;
     WORD write_timeout = 1000; // 0 indicates infinite
